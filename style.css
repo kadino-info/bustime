@@ -1,0 +1,188 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --main-bg-color: black;
+  --main-second-bg-color: snow;
+  --main-color: snow;
+  --main-second-color: black;
+  --main-shadow-color: darkgray;
+  --main-second-shadow-color: rgb(56, 56, 56);
+}
+
+main, header, .weather, footer {
+  margin: 1rem;
+  max-width: 95vw;
+}
+
+header,
+header .header-block,
+header .header-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+i {
+  margin: 10px;
+  font-size: 2rem;
+  vertical-align: middle;
+}
+
+.header-time {
+  font-size: 1.4rem;
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  white-space: nowrap;
+}
+
+.accordion, .accordion-body, .accordion-button, .accordion-button:not(.collapsed){
+  max-width: 95vw;
+}
+
+.accordion-button:focus {
+  z-index: 3;
+  outline: 0;
+}
+
+.shedule {
+  margin: auto 0.3rem;
+  font-size: 2rem;
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+
+.shedulenow {
+  margin: 0.3rem;
+  font-size: 3rem;
+}
+
+.shedulelong {
+  margin: auto 0.3rem;
+  font-size: 1.4rem;
+}
+
+.oldshedule {
+  font-size: 1rem;
+  max-height: 2.5rem;
+}
+
+.bs-weather {
+  margin: 5px;
+  padding: 5px;
+  border: solid 1px grey;
+  border-radius: 10px;
+  background-color: indigo;
+  text-align: center;
+}
+
+.shedule.hidden,
+.bs-weather.hidden{
+  display: none;
+}
+
+.weather-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.accordion-body{
+  display: flex;
+  max-width: 100%;
+  flex-wrap: wrap;
+}
+
+.accordion-button:focus {
+  border-color: darkgray;
+  box-shadow: 0 0 0 0.25rem rgb(190 190 190 / 25%);
+}
+
+@media (prefers-color-scheme: light) {
+    body {
+      background: var(--main-second-bg-color);
+      color: var(--main-second-color);
+    }
+
+    .header-time {
+      background-color: darkgray;
+    }
+
+    .bs-weather {
+      color: var(--main-color);
+    }
+
+    .accordion, .accordion-body, .accordion-button, .accordion-button:not(.collapsed){
+      background: var(--main-second-bg-color);
+      color: var(--main-second-color);
+    }
+
+    .accordion-button, .accordion-button:not(.collapsed){
+      background: var(--main-shadow-color);
+    }
+    
+    .accordion-button:focus {
+      border-color: darkgray;
+      box-shadow: 0 0 0 0.25rem rgb(190 190 190 / 25%);
+    }
+
+    .shedule {
+      background-color: rgb(0, 85, 85);
+      color: var(--main-color);
+    }
+    
+    .shedulelong {
+      background-color: rgb(0, 55, 55);
+      color: var(--main-color);
+    }
+
+    .oldshedule {
+      background-color: rgb(61, 35, 39);
+      color: darkslategray;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+      background: var(--main-bg-color);
+      color: var(--main-color);
+    }
+    
+    .header-time {
+      background-color: rgb(0, 35, 35);
+    }
+
+    .accordion, .accordion-body, .accordion-button, .accordion-button:not(.collapsed){
+      background: var(--main-bg-color);
+      color: var(--main-color);
+    }
+
+    .accordion-button, .accordion-button:not(.collapsed){
+      background: var(--main-second-shadow-color);
+    }
+
+    .shedule {
+      background-color: rgb(0, 85, 85);
+    }
+    
+    .shedulelong {
+      background-color: rgb(0, 35, 35);
+    }
+
+    .oldshedule {
+      background-color: rgb(61, 35, 39);
+      color: darkslategray;
+    }
+}
+
+@media (max-width: 600px) {
+  header {
+    justify-content: center;
+  }
+}
