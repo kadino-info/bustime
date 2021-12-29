@@ -1,6 +1,6 @@
 import setShedules from "./setShedules.min.js";
 // import setShedules from "./setShedules.js";
-import { OWM_API_KEY } from "./env.js"; // OpenWeatherMap ApiKey store in env.js file
+import { OWM_API_KEY } from "../env.js"; // OpenWeatherMap ApiKey store in env.js file
 
 const teperatureUrl = "https://rbstr.tk:3000/home/";
 const weatherCity = 'Mogilev';
