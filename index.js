@@ -1,8 +1,7 @@
 import setShedules from "./setShedules.min.js";
 // import setShedules from "./setShedules.js";
-import { OWM_API_KEY } from "./env.js"; // OpenWeatherMap ApiKey store in env.js file
+import { OWM_API_KEY, kadinotk } from "./env.js"; // OpenWeatherMap ApiKey store in env.js file
 
-const teperatureUrl = "https://rbstr.tk:3000/home/";
 const weatherCity = 'Mogilev';
 const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${weatherCity}&lang=ru&appid=${OWM_API_KEY}&units=metric`;
 const temperatureKadino = document.getElementById("temperatureKadino");
@@ -44,7 +43,7 @@ let date, hours, mins, day;
 async function getTemperature () {
   temperatureKadino.innerText = "";
   temperatureMogilev.innerText = "";
-  const req = await fetch(teperatureUrl);
+  const req = await fetch(kadinotk);
   const res = await req.json();
   if (res[0].blOut) {
     temperatureKadino.innerText = res[0].blOut + "°С";
