@@ -18,7 +18,8 @@ export default function setShedules(showDay) {
   const date = new Date();
   const cday = date.getDay();
   day = showDay !== undefined ? showDay : cday;
-  if (day === 0) day = cday + 1;
+  if (day === 0) day = 7;
+  console.log(day)
   hours = date.getHours();
   const mins = date.getMinutes();
   if (showDay !== undefined) {
@@ -53,11 +54,6 @@ export default function setShedules(showDay) {
     elNow = []; elBack = [];
     sheduleArr.forEach(el => {
       const arrEl = el.split(":"); 
-      // const newDate = new Date();
-      // newDate.setHours(Number(arrEl[0]), Number(arrEl[1]), 0);
-      // const deltaMinutes = (newDate - date) / 60000;
-      // console.log(el, newDate, deltaMinutes );
-
       const newEl = document.createElement("span");
       if(Number(arrEl[0]) >= hours) {
         newEl.classList.add("shedule");
@@ -79,7 +75,6 @@ export default function setShedules(showDay) {
       newEl.innerText = el;
       sheduleEl.appendChild(newEl);
     });
-    console.log(nextEl.childNodes.length)
     if(elBack && elNow.length < 1) nextEl.innerText = elBack.join(", ");
     if(showingDay === undefined && nextEl.childNodes.length < 1) nextEl.classList.add('hidden');
     // if(showingDay === undefined && nextEl.childNodes.length < 1) nextEl.innerText = 'Завтра';

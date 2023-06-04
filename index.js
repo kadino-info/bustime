@@ -1,5 +1,5 @@
-import setShedules from "./setShedules.min.js";
-// import setShedules from "./setShedules.js";
+// import setShedules from "./setShedules.min.js";
+import setShedules from "./setShedules.js";
 import { OWM_API_KEY, kadinotk } from "./env.js"; // OpenWeatherMap ApiKey store in env.js file
 
 const weatherCity = 'Mogilev';
@@ -23,7 +23,7 @@ const reset = document.getElementById("reset");
 const dropdownItems = document.querySelectorAll('.dropdown-item');
 let showDay
 
-function toggle(e) { 
+function toggle(e) {
   const clList = e.classList;
   if (!clList.contains('show')) clList.add('show');
   else clList.remove('show');
@@ -36,11 +36,11 @@ if (from) {
   if (from.toLowerCase().match("kadino" || "кадино")) collapseKadino.classList.add("show");
   if (from.toLowerCase().match("vokzal" || "вокзал")) collapseVokzal.classList.add("show");
   if (from.toLowerCase().match("romanovichi" || "романовичи")) collapseRomanovichi.classList.add("show");
-} 
+}
 
 let date, hours, mins, day;
 
-async function getTemperature () {
+async function getTemperature() {
   temperatureKadino.innerText = "";
   temperatureMogilev.innerText = "";
   const req = await fetch(kadinotk);
@@ -49,67 +49,63 @@ async function getTemperature () {
     temperatureKadino.innerText = res[0].blOut + "°С";
     temperatureKadino.classList.remove('hidden');
   } else temperatureKadino.classList.add('hidden')
-  
+
   setTimeout(() => getTemperature(), 800000);
 };
 
 async function getWeather() {
-    const res = await fetch(weatherUrl);
-    const data = await res.json();
-    if (data.cod !== 200) {
-        weatherIcon.textContent = "";
-        temperatureMogilev.textContent = "";
-        weatherDescription.textContent = "";
-        wind.textContent = "";
-        console.log(data)
-        return
-    }
-    weatherIcon.classList.add(`owf-${data.weather[0].id}`);
-    temperatureMogilev.textContent = `${Math.round(data.main.temp)}°C`;
-    weatherDescription.textContent = data.weather[0].description;
-    wind.textContent = `- ветер: ${Math.round(data.wind.speed)}м/с`;
+  const res = await fetch(weatherUrl);
+  const data = await res.json();
+  if (data.cod !== 200) {
+    weatherIcon.textContent = "";
+    temperatureMogilev.textContent = "";
+    weatherDescription.textContent = "";
+    wind.textContent = "";
+    console.log(data)
+    return
+  }
+  weatherIcon.classList.add(`owf-${data.weather[0].id}`);
+  temperatureMogilev.textContent = `${Math.round(data.main.temp)}°C`;
+  weatherDescription.textContent = data.weather[0].description;
+  wind.textContent = `- ветер: ${Math.round(data.wind.speed)}м/с`;
 
-    setTimeout(getWeather, 1000000);
+  setTimeout(getWeather, 1000000);
 }
 
 const timeUpdate = () => {
-  
   const addZero = (digit) => { return digit < 10 ? `0${digit}` : digit };
-
   date = new Date();
   day = date.getDay();
   hours = date.getHours();
   mins = date.getMinutes();
-  
   timeNowHours.innerText = addZero(hours);
   timeNowMins.innerText = addZero(mins);
-
   setTimeout(() => timeUpdate(), 5000);
 };
 
 const cday = new Date().getDay();
-
+console.log(cday);
 dropdownButton.addEventListener('click', () => toggle(dropdownMenu));
 reset.addEventListener('click', () => {
   setShedules();
-  dropdownItems.forEach((item) => {item.classList.remove('active')})
+  dropdownItems.forEach((item) => { item.classList.remove('active') })
   dropdownButton.innerText = 'Другой день';
 });
 dropdownItems.forEach(
   (item, indx) => {
-    if(indx === cday) item.classList.add('desabled')
+    if (indx === cday) item.classList.add('desabled');
     item.addEventListener('click', (e) => {
-      setShedules(indx); 
+      setShedules(indx || cday + 1);
       showDay = indx;
       toggle(dropdownMenu);
       dropdownButton.innerText = e.target.innerText;
-      dropdownItems.forEach((item) => {item.classList.remove('active')})
+      dropdownItems.forEach((item) => { item.classList.remove('active') })
       e.target.classList.add('active');
     })
-    }
-  );
-
+  }
+);
+console.log(showDay)
 timeUpdate();
 setShedules(showDay);
-getTemperature();
+// getTemperature();
 getWeather();
