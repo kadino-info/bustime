@@ -1,2 +1,2 @@
-export const OWM_API_KEY = '351bef36095247499eb96265dfb607d2';
-export const kadinotk = 'https://rbstrtk.herokuapp.com/home';
+
+export const { VITE_APP_OWM_API_KEY: OWM_API_KEY, VITE_APP_OWM_BACK: kadinotk } = import.meta.env;
