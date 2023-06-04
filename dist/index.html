@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <title>BusTime | рассписание маршруток Кадино, Кирова, Романовичи</title>
+  <meta charset="UTF-8">
+  <meta property="og:title" content="BusTime | рассписание маршруток Кадино, Кирова, Романовичи">
+  <meta property="og:description" content="Рассписание маршруток и автобусов на все дни недели, Могилёв, Кадино, Романовичи, Кирова.">
+  <meta property="og:url" content="https://bustime.tk">
+  <meta property="og:image" content="https://bustime.tk/favicon.png">
+  <meta property="og:site_name" content="BusTime" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+    crossorigin="anonymous"
+  />
+  <link rel="apple-touch-icon" href="https://bustime.tk/favicon.png" />
+  <link rel="icon" type="image/x-icon" href="https://bustime.tk/favicon.ico" />
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+  
+  <script type="module" crossorigin src="/assets/index-984294d1.js"></script>
+  <link rel="stylesheet" href="/assets/index-d7d6cafa.css">
+</head>
+<body>
+  <header class="">
+    <span class="header-time">
+    <span id="timeNowHours"></span>
+    <span class="coll" >:</span>
+    <span id="timeNowMins"></span>
+    </span>
+    <h1 class="bs-title">BusTime</h1>
+    <img src="/assets/favicon-949c4864.svg" width="50">
+    <div class="header-block step" data-step="a">
+      <div class="header-buttons">
+        <div class="dropdown">
+          <button id="dropdown-toggle" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">Сегодня</button>
+          <i id="reset" role="button" class="ri-refresh-line"></i>
+          <div class="dropdown-menu" aria-labelledby="my-dropdown">
+            <a class="dropdown-item">Завтра</a>
+            <a class="dropdown-item">Понедельник</a>
+            <a class="dropdown-item">Вторник</a>
+            <a class="dropdown-item">Среда</a>
+            <a class="dropdown-item">Четверг</a>
+            <a class="dropdown-item">Пятница</a>
+            <a class="dropdown-item">Суббота</a>
+            <a class="dropdown-item active">Воскресенье</a>
+          </div>
+        </div>
+        <div class="dropdown-menu">
+        </div>
+      </div>
+    </div> 
+  </header>
+  <main>
+    <div class="weather">
+      <div class="bs-weather">в Могилёве
+        <span id="temperatureMogilev"></span>
+          <i class="weather-icon owf" id="weatherIcon"></i>
+          <span id="weatherDescription"></span>
+          <span id="wind"></span>
+      </div>
+    </div>
+    <div class="accordion" id="accordionExample">
+      <div class="accordion-item step" data-step="b">
+        <h2 class="accordion-header" id="headingVokzal">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVokzal" aria-expanded="false" aria-controls="collapseVokzal">
+            Автовокзал<span class="shedule shedulenow" id="timeNextVokzal"></span>
+          </button>
+        </h2>
+        <div id="collapseVokzal" class="accordion-collapse collapse" aria-labelledby="headingVokzal" data-bs-parent="#accordionExample">
+          <div class="accordion-body" id="sheduleVokzal"></div>
+        </div>
+      </div>
+      <div class="accordion-item step" data-step="c">
+        <h2 class="accordion-header" id="headingKirova">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseKirova" aria-expanded="true" aria-controls="collapseKirova">
+            Кирова
+            <span class="shedule shedulenow" id="timeNextKirova"></span>
+          </button>
+        </h2>
+        <div id="collapseKirova" class="accordion-collapse collapse" aria-labelledby="headingKirova" data-bs-parent="#accordionExample">
+          <div class="accordion-body" id="sheduleKirova"></div>
+        </div>
+      </div>
+      <div class="accordion-item step" data-step="d">
+        <h2 class="accordion-header" id="headingKadino">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseKadino" aria-expanded="false" aria-controls="collapseKadino">
+            Кадино
+            <span class="shedule shedulenow" id="timeNextKadino"></span>
+            <span class="bs-weather hidden" id="temperatureKadino"></span>
+          </button>
+        </h2>
+        <div id="collapseKadino" class="accordion-collapse collapse" aria-labelledby="headingKadino" data-bs-parent="#accordionExample">
+          <div class="accordion-body" id="sheduleKadino"></div>
+        </div>
+      </div>
+      <div class="accordion-item step" data-step="e">
+        <h2 class="accordion-header" id="headingRomanovichi">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRomanovichi" aria-expanded="false" aria-controls="collapseRomanovichi">
+            Романовичи<span class="shedule shedulenow" id="timeNextRomanovichi"></span>
+          </button>
+        </h2>
+        <div id="collapseRomanovichi" class="accordion-collapse collapse" aria-labelledby="headingRomanovichi" data-bs-parent="#accordionExample">
+          <div class="accordion-body" id="sheduleRomanovichi"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="step" data-step="f">
+    <span>Рассписание получено из открытых источников.</span>
+    <br>
+    <span>Рассписание маршруток и автобусов Кадино, Романовичи, з-д. Кирова, Могилёв.</span>
+    <br>
+    <span>Температура в Кадино</span>
+    <a href="https://kadino.tk" target="blank">kadino.tk</a>
+    <br>
+    <span>Предложения</span>
+    <a href="mailto:bustimetk@gmail.com" target="blank">
+      <svg _ngcontent-suk-c153="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" alt="telegram" width="25px"
+        height="25px" fill="#006686">
+        <title>contact email</title>
+        <path _ngcontent-suk-c153="" d="M 19.976562 3.1210938 
+		L 19.611328 3.2695312 
+		C 19.611328 3.2695312 6.6375504 8.5740484 2.6132812 10.267578 
+		L 2.0019531 10.525391 
+		L 2.0019531 12.779297 
+		L 6.9472656 14.755859 
+		L 8.6796875 19.996094 
+		L 10.251953 20.005859 
+		L 12.955078 17.720703 
+		L 16.355469 20.996094 
+		L 18.808594 20.996094 
+		L 21.964844 3.875 
+		L 19.976562 3.1210938 
+		z M 19.646484 5.4179688 
+		L 17.146484 18.980469 
+		L 13.044922 15.029297 
+		L 10.224609 17.410156 
+		L 11 14.375 
+		L 17.28125 8 
+		L 17.082031 7.7988281 
+		C 17.082031 7.7988281 10.706702 11.473998 8.0019531 13.023438 
+		L 4.5371094 11.638672 
+		C 9.0770415 9.7455758 18.697943 5.8058761 19.646484 5.4179688 z">
+    </path>
+    </svg>
+    </a>
+    <span>© 2023</span>
+  </footer>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+</html>
