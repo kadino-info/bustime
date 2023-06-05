@@ -1,6 +1,6 @@
 import setShedules from "./setShedules.js";
 import { OWM_API_KEY, kadinotk } from "./env.js";
-
+console.log({ OWM_API_KEY, kadinotk })
 const weatherCity = 'Mogilev';
 const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${weatherCity}&lang=ru&appid=${OWM_API_KEY}&units=metric`;
 const temperatureKadino = document.getElementById("temperatureKadino");
