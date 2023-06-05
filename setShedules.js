@@ -19,7 +19,6 @@ export default function setShedules(showDay) {
   const cday = date.getDay();
   day = showDay !== undefined ? showDay : cday;
   if (day === 0) day = 7;
-  console.log(day)
   hours = date.getHours();
   const mins = date.getMinutes();
   if (showDay !== undefined) {
