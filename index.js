@@ -1,6 +1,5 @@
-// import setShedules from "./setShedules.min.js";
 import setShedules from "./setShedules.js";
-import { OWM_API_KEY, kadinotk } from "./env.js"; // OpenWeatherMap ApiKey store in env.js file
+import { OWM_API_KEY, kadinotk } from "./env.js";
 
 const weatherCity = 'Mogilev';
 const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${weatherCity}&lang=ru&appid=${OWM_API_KEY}&units=metric`;
@@ -84,7 +83,6 @@ const timeUpdate = () => {
 };
 
 const cday = new Date().getDay();
-console.log(cday);
 dropdownButton.addEventListener('click', () => toggle(dropdownMenu));
 reset.addEventListener('click', () => {
   setShedules();
@@ -104,7 +102,7 @@ dropdownItems.forEach(
     })
   }
 );
-console.log(showDay)
+
 timeUpdate();
 setShedules(showDay);
 // getTemperature();
