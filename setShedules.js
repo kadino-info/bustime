@@ -1,19 +1,58 @@
-import shedule from "./shedule.js";
+import routes from "./shedule-2026-routes.js";
+
+const ROUTE_IDS = [290, 292, 293];
+const enabledRoutes = new Set(ROUTE_IDS);
 
 const timeNextKadino = document.getElementById("timeNextKadino");
 const timeNextKirova = document.getElementById("timeNextKirova");
 const timeNextRomanovichi = document.getElementById("timeNextRomanovichi");
 const timeNextVokzal = document.getElementById("timeNextVokzal");
+const timeNextMyasokombinat = document.getElementById("timeNextMyasokombinat");
 const sheduleKadino = document.getElementById("sheduleKadino");
 const sheduleKirova = document.getElementById("sheduleKirova");
 const sheduleRomanovichi = document.getElementById("sheduleRomanovichi");
 const sheduleVokzal = document.getElementById("sheduleVokzal");
+const sheduleMyasokombinat = document.getElementById("sheduleMyasokombinat");
 let timer
 let day
 let hours
 let showingDay
 
-export default function setShedules(showDay) {
+function getRouteStopKey (stop, day) {
+  if (day === 6) return `${stop}6`;
+  if (day === 7) return `${stop}7`;
+  return stop;
+}
+
+function parseTime (time) {
+  const [h, m] = time.split(":");
+  return Number(h) * 60 + Number(m);
+}
+
+function buildSchedule (stop, day, kind = "main") {
+  const stopKey = getRouteStopKey(stop, day);
+  const entries = [];
+
+  for (const routeId of ROUTE_IDS) {
+    if (!enabledRoutes.has(routeId)) continue;
+    const times = routes[routeId][kind]?.[stopKey] || [];
+    for (const time of times) {
+      entries.push({ time, route: routeId });
+    }
+  }
+
+  return entries.sort((a, b) => parseTime(a.time) - parseTime(b.time));
+}
+
+function createTimeSpan ({ time, route }, stateClasses) {
+  const span = document.createElement("span");
+  span.classList.add("shedule", `route-${route}`);
+  stateClasses.forEach((cls) => span.classList.add(cls));
+  span.textContent = time;
+  return span;
+}
+
+export default function setShedules (showDay) {
   showingDay = showDay
   const date = new Date();
   const cday = date.getDay();
@@ -24,65 +63,77 @@ export default function setShedules(showDay) {
   if (showDay !== undefined) {
     clearTimeout(timer);
     hours = 0;
-  } 
-
-  let kirova, elNow, elBack, kadino, romanovichi, vokzal;
-  if(day < 6) {
-    kirova = shedule.kirova;
-    kadino = shedule.kadino;
-    romanovichi = shedule.romanovichi;
-    vokzal = shedule.vokzal;
-  } else {
-    if(day === 6) {
-    kirova = shedule.kirova6;
-    kadino = shedule.kadino6;
-    romanovichi = shedule.romanovichi6;
-    vokzal = shedule.vokzal6;
-    }
-    if(day === 7) {
-      kirova = shedule.kirova7;
-      kadino = shedule.kadino7;
-      romanovichi = shedule.romanovichi7;
-      vokzal = shedule.vokzal7;
-    }
-  };
-
-  function sheduling(sheduleArr, nextEl, sheduleEl) {
-    sheduleEl.innerText = ""; nextEl.innerText = ""; 
-    nextEl.classList.remove('hidden');
-    elNow = []; elBack = [];
-    sheduleArr.forEach(el => {
-      const arrEl = el.split(":"); 
-      const newEl = document.createElement("span");
-      if(Number(arrEl[0]) >= hours) {
-        newEl.classList.add("shedule");
-        if(Number(arrEl[0]) === hours && Number(arrEl[1]) < mins) newEl.classList.add("oldshedule")
-        if(Number(arrEl[0]) === hours && Number(arrEl[1]) >= mins) {
-          newEl.classList.add("shedulenow");
-          elNow.push(el);
-        }
-        if((Number(arrEl[0]) - hours) === 1) elNow.push(el);
-        if((Number(arrEl[0]) - hours) > 1) {
-          newEl.classList.add("shedulelong");
-          elBack.push(el);
-        };
-      } else {
-        newEl.classList.add("shedule")
-        newEl.classList.add("oldshedule")
-      }
-      nextEl.innerText = elNow.join(", ");
-      newEl.innerText = el;
-      sheduleEl.appendChild(newEl);
-    });
-    if(elBack && elNow.length < 1) nextEl.innerText = elBack.join(", ");
-    if(showingDay === undefined && nextEl.childNodes.length < 1) nextEl.classList.add('hidden');
-    // if(showingDay === undefined && nextEl.childNodes.length < 1) nextEl.innerText = 'Завтра';
   }
-  
-  sheduling(kirova, timeNextKirova, sheduleKirova);
-  sheduling(kadino, timeNextKadino, sheduleKadino);
-  sheduling(romanovichi, timeNextRomanovichi, sheduleRomanovichi);
-  sheduling(vokzal, timeNextVokzal, sheduleVokzal);
-  
+
+  function sheduling (entries, nextEl, sheduleEl) {
+    sheduleEl.replaceChildren();
+    nextEl.replaceChildren();
+    nextEl.classList.remove("hidden");
+
+    const elNow = [];
+    const elBack = [];
+
+    entries.forEach((entry) => {
+      const [h, m] = entry.time.split(":");
+      const hour = Number(h);
+      const minute = Number(m);
+      const stateClasses = [];
+
+      if (hour >= hours) {
+        if (hour === hours && minute < mins) stateClasses.push("oldshedule");
+        if (hour === hours && minute >= mins) {
+          stateClasses.push("shedulenow");
+          elNow.push(entry);
+        }
+        if ((hour - hours) === 1) elNow.push(entry);
+        if ((hour - hours) > 1) {
+          stateClasses.push("shedulelong");
+          elBack.push(entry);
+        }
+      } else {
+        stateClasses.push("oldshedule");
+      }
+
+      sheduleEl.appendChild(createTimeSpan(entry, stateClasses));
+    });
+
+    const upcoming = elNow.length > 0 ? elNow : elBack;
+    upcoming.forEach((entry, index) => {
+      if (index > 0) nextEl.appendChild(document.createTextNode(", "));
+      nextEl.appendChild(createTimeSpan(entry, ["shedulenow"]));
+    });
+
+    if (showingDay === undefined && upcoming.length < 1) nextEl.classList.add("hidden");
+  }
+
+  sheduling(buildSchedule("vokzal", day), timeNextVokzal, sheduleVokzal);
+  sheduling(buildSchedule("myasokombinat", day), timeNextMyasokombinat, sheduleMyasokombinat);
+  sheduling(buildSchedule("kirova", day), timeNextKirova, sheduleKirova);
+  sheduling(buildSchedule("kadino", day), timeNextKadino, sheduleKadino);
+  sheduling(buildSchedule("romanovichi", day), timeNextRomanovichi, sheduleRomanovichi);
+
   timer = setTimeout(() => setShedules(showingDay), 10000);
 };
+
+export function initRouteToggles () {
+  document.querySelectorAll(".route-legend-item[data-route]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const routeId = Number(btn.dataset.route);
+      const isActive = btn.classList.contains("is-active");
+
+      if (isActive && enabledRoutes.size === 1) return;
+
+      if (isActive) {
+        enabledRoutes.delete(routeId);
+        btn.classList.remove("is-active");
+        btn.setAttribute("aria-pressed", "false");
+      } else {
+        enabledRoutes.add(routeId);
+        btn.classList.add("is-active");
+        btn.setAttribute("aria-pressed", "true");
+      }
+
+      setShedules(showingDay);
+    });
+  });
+}

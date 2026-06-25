@@ -1,4 +1,4 @@
-import setShedules from "./setShedules.js";
+import setShedules, { initRouteToggles } from "./setShedules.js";
 import { OWM_API_KEY, kadinotk } from "./env.js";
 
 const weatherCity = 'Mogilev';
@@ -13,6 +13,7 @@ const timeNowMins = document.getElementById("timeNowMins");
 const collapseKirova = document.getElementById("collapseKirova");
 const collapseKadino = document.getElementById("collapseKadino");
 const collapseVokzal = document.getElementById("collapseVokzal");
+const collapseMyasokombinat = document.getElementById("collapseMyasokombinat");
 const collapseRomanovichi = document.getElementById("collapseRomanovichi");
 const urlParams = new URLSearchParams(window.location.search);
 const tomorow = document.querySelector('.tomorow');
@@ -34,6 +35,7 @@ if (from) {
   if (from.toLowerCase().match("kirova" || "кирова")) collapseKirova.classList.add("show");
   if (from.toLowerCase().match("kadino" || "кадино")) collapseKadino.classList.add("show");
   if (from.toLowerCase().match("vokzal" || "вокзал")) collapseVokzal.classList.add("show");
+  if (from.toLowerCase().match("myaso|мясокомбинат")) collapseMyasokombinat.classList.add("show");
   if (from.toLowerCase().match("romanovichi" || "романовичи")) collapseRomanovichi.classList.add("show");
 }
 
@@ -104,6 +106,7 @@ dropdownItems.forEach(
 );
 
 timeUpdate();
+initRouteToggles();
 setShedules(showDay);
-// getTemperature();
+getTemperature();
 getWeather();

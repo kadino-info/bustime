@@ -63,21 +63,37 @@
           <span id="wind"></span>
       </div>
     </div>
+    <div class="route-legend" role="group" aria-label="Маршруты">
+      <button type="button" class="route-legend-item route-290 is-active" data-route="290" aria-pressed="true">290 — Могилёв АВ – Романовичи</button>
+      <button type="button" class="route-legend-item route-292 is-active" data-route="292" aria-pressed="true">292 — Кирова – Кадино</button>
+      <button type="button" class="route-legend-item route-293 is-active" data-route="293" aria-pressed="true">293 — Мясокомбинат – Кирова – Кадино</button>
+    </div>
     <div class="accordion" id="accordionExample">
       <div class="accordion-item step" data-step="b">
         <h2 class="accordion-header" id="headingVokzal">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVokzal" aria-expanded="false" aria-controls="collapseVokzal">
-            Автовокзал<span class="shedule shedulenow" id="timeNextVokzal"></span>
+            <span class="stop-name">Автовокзал <span class="stop-direction" title="отправление в сторону Романовичи">→</span></span><span class="shedule shedulenow" id="timeNextVokzal"></span>
           </button>
         </h2>
         <div id="collapseVokzal" class="accordion-collapse collapse" aria-labelledby="headingVokzal" data-bs-parent="#accordionExample">
           <div class="accordion-body" id="sheduleVokzal"></div>
         </div>
       </div>
+      <div class="accordion-item step" data-step="b2">
+        <h2 class="accordion-header" id="headingMyasokombinat">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMyasokombinat" aria-expanded="false" aria-controls="collapseMyasokombinat">
+            <span class="stop-name">Мясокомбинат <span class="stop-direction" title="отправление в сторону Романовичи">→</span></span>
+            <span class="shedule shedulenow" id="timeNextMyasokombinat"></span>
+          </button>
+        </h2>
+        <div id="collapseMyasokombinat" class="accordion-collapse collapse" aria-labelledby="headingMyasokombinat" data-bs-parent="#accordionExample">
+          <div class="accordion-body" id="sheduleMyasokombinat"></div>
+        </div>
+      </div>
       <div class="accordion-item step" data-step="c">
         <h2 class="accordion-header" id="headingKirova">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseKirova" aria-expanded="true" aria-controls="collapseKirova">
-            Кирова
+            <span class="stop-name">Кирова <span class="stop-direction" title="отправление в сторону Романовичи">→</span></span>
             <span class="shedule shedulenow" id="timeNextKirova"></span>
           </button>
         </h2>
@@ -88,7 +104,7 @@
       <div class="accordion-item step" data-step="d">
         <h2 class="accordion-header" id="headingKadino">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseKadino" aria-expanded="false" aria-controls="collapseKadino">
-            Кадино
+            <span class="stop-name">Кадино <span class="stop-direction" title="отправление в сторону Могилёва">→</span></span>
             <span class="shedule shedulenow" id="timeNextKadino"></span>
             <span class="bs-weather hidden" id="temperatureKadino"></span>
           </button>
@@ -100,7 +116,7 @@
       <div class="accordion-item step" data-step="e">
         <h2 class="accordion-header" id="headingRomanovichi">
           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRomanovichi" aria-expanded="false" aria-controls="collapseRomanovichi">
-            Романовичи<span class="shedule shedulenow" id="timeNextRomanovichi"></span>
+            <span class="stop-name">Романовичи <span class="stop-direction" title="отправление в сторону Могилёва">→</span></span><span class="shedule shedulenow" id="timeNextRomanovichi"></span>
           </button>
         </h2>
         <div id="collapseRomanovichi" class="accordion-collapse collapse" aria-labelledby="headingRomanovichi" data-bs-parent="#accordionExample">
@@ -110,11 +126,9 @@
     </div>
   </main>
   <footer class="step" data-step="f">
-    <span>Рассписание получено из открытых источников.</span>
+    <span>Расписание получено из открытых источников.</span>
     <br>
-    <span>Рассписание маршруток и автобусов Кадино, Романовичи, з-д. Кирова, Могилёв.</span>
-    <br>
-    <span>Маршрутные такси и автобус Кадино, Романовичи, з-д. Кирова, Могилёв, расписание.</span>
+    <span>Расписание пригородных автобусов: Могилёв, Мясокомбинат, з-д. Кирова, Кадино, Романовичи.</span>
     <br>
 <!--     <span>Температура в Кадино</span> -->
 <!--     <a href="https://kadino.tk" target="blank">kadino.tk</a>
@@ -150,7 +164,7 @@
     </path>
     </svg>
     </a>
-    <span>© 2023</span>
+    <span>© 2026</span>
   </footer>
 </body>
 <script type="module" src="index.js"></script>

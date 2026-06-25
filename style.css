@@ -53,25 +53,30 @@ i {
 }
 
 .shedule {
-  margin: auto 0.3rem;
+  display: inline-block;
+  margin: 1px;
   font-size: 2rem;
-  border-radius: 5px;
-  padding: 0.5rem;
+  line-height: 1.15;
+  border-radius: 4px;
+  padding: 0.05rem 0.3rem;
 }
 
 .shedulenow {
-  margin: 0.3rem;
+  margin: 1px;
   font-size: 3rem;
+  line-height: 1.1;
 }
 
 .shedulelong {
-  margin: auto 0.3rem;
+  margin: 1px;
   font-size: 1.4rem;
+  padding: 0.04rem 0.25rem;
 }
 
 .oldshedule {
   font-size: 1rem;
-  max-height: 2.5rem;
+  line-height: 1.1;
+  padding: 0.03rem 0.2rem;
 }
 
 .bs-weather {
@@ -88,6 +93,28 @@ i {
   display: none;
 }
 
+.route-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.route-legend-item {
+  border: 2px solid transparent;
+  border-radius: 5px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: inherit;
+  transition: opacity 0.15s ease, filter 0.15s ease;
+}
+
+.route-legend-item:not(.is-active) {
+  opacity: 0.4;
+  filter: grayscale(0.6);
+}
+
 .weather-icon {
   width: 20px;
   height: 20px;
@@ -97,6 +124,41 @@ i {
   display: flex;
   max-width: 100%;
   flex-wrap: wrap;
+  gap: 1px;
+  align-content: flex-start;
+  align-items: center;
+}
+
+.accordion-body .shedule {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0.12em 0.28em;
+  vertical-align: middle;
+}
+
+.accordion-body .shedulelong {
+  padding: 0.1em 0.24em;
+}
+
+.accordion-body .oldshedule {
+  padding: 0.08em 0.2em;
+}
+
+.accordion-button .shedule {
+  padding: 0.02rem 0.2rem;
+  margin: 1px;
+}
+
+.stop-name {
+  margin-right: 0.5rem;
+  white-space: nowrap;
+}
+
+.stop-direction {
+  font-weight: 700;
+  opacity: 0.85;
 }
 
 .accordion-button:focus {
@@ -132,19 +194,36 @@ i {
       box-shadow: 0 0 0 0.25rem rgb(190 190 190 / 25%);
     }
 
-    .shedule {
-      background-color: rgb(0, 85, 85);
-      color: var(--main-color);
-    }
-    
-    .shedulelong {
-      background-color: rgb(0, 55, 55);
+    .shedule.route-290 {
+      background-color: rgb(0, 100, 120);
       color: var(--main-color);
     }
 
-    .oldshedule {
-      background-color: rgb(61, 35, 39);
-      color: darkslategray;
+    .shedule.route-292 {
+      background-color: rgb(160, 110, 20);
+      color: var(--main-color);
+    }
+
+    .shedule.route-293 {
+      background-color: rgb(90, 70, 150);
+      color: var(--main-color);
+    }
+
+    .shedulelong.route-290 { background-color: rgb(0, 70, 85); }
+    .shedulelong.route-292 { background-color: rgb(120, 85, 15); }
+    .shedulelong.route-293 { background-color: rgb(70, 55, 120); }
+
+    .oldshedule.route-290 { background-color: rgb(45, 70, 75); color: darkslategray; }
+    .oldshedule.route-292 { background-color: rgb(75, 60, 35); color: darkslategray; }
+    .oldshedule.route-293 { background-color: rgb(55, 50, 70); color: darkslategray; }
+
+    .route-legend-item.route-290.is-active { background-color: rgb(0, 100, 120); color: var(--main-color); }
+    .route-legend-item.route-292.is-active { background-color: rgb(160, 110, 20); color: var(--main-color); }
+    .route-legend-item.route-293.is-active { background-color: rgb(90, 70, 150); color: var(--main-color); }
+
+    .route-legend-item:not(.is-active) {
+      background-color: var(--main-shadow-color);
+      color: var(--main-second-color);
     }
 }
 
@@ -167,17 +246,25 @@ i {
       background: var(--main-second-shadow-color);
     }
 
-    .shedule {
-      background-color: rgb(0, 85, 85);
-    }
-    
-    .shedulelong {
-      background-color: rgb(0, 35, 35);
-    }
+    .shedule.route-290 { background-color: rgb(0, 100, 120); }
+    .shedule.route-292 { background-color: rgb(140, 95, 15); }
+    .shedule.route-293 { background-color: rgb(80, 60, 140); }
 
-    .oldshedule {
-      background-color: rgb(61, 35, 39);
-      color: darkslategray;
+    .shedulelong.route-290 { background-color: rgb(0, 65, 80); }
+    .shedulelong.route-292 { background-color: rgb(100, 70, 10); }
+    .shedulelong.route-293 { background-color: rgb(60, 45, 100); }
+
+    .oldshedule.route-290 { background-color: rgb(35, 55, 60); color: darkslategray; }
+    .oldshedule.route-292 { background-color: rgb(60, 50, 30); color: darkslategray; }
+    .oldshedule.route-293 { background-color: rgb(45, 40, 60); color: darkslategray; }
+
+    .route-legend-item.route-290.is-active { background-color: rgb(0, 100, 120); }
+    .route-legend-item.route-292.is-active { background-color: rgb(140, 95, 15); }
+    .route-legend-item.route-293.is-active { background-color: rgb(80, 60, 140); }
+
+    .route-legend-item:not(.is-active) {
+      background-color: var(--main-second-shadow-color);
+      color: var(--main-color);
     }
 }
 
