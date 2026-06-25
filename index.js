@@ -1,4 +1,4 @@
-import setShedules from "./setShedules.js";
+import setShedules, { initRouteToggles } from "./setShedules.js";
 import { OWM_API_KEY, kadinotk } from "./env.js";
 
 const weatherCity = 'Mogilev';
@@ -104,6 +104,7 @@ dropdownItems.forEach(
 );
 
 timeUpdate();
+initRouteToggles();
 setShedules(showDay);
-// getTemperature();
+getTemperature();
 getWeather();
