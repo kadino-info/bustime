@@ -7,10 +7,12 @@ const timeNextKadino = document.getElementById("timeNextKadino");
 const timeNextKirova = document.getElementById("timeNextKirova");
 const timeNextRomanovichi = document.getElementById("timeNextRomanovichi");
 const timeNextVokzal = document.getElementById("timeNextVokzal");
+const timeNextMyasokombinat = document.getElementById("timeNextMyasokombinat");
 const sheduleKadino = document.getElementById("sheduleKadino");
 const sheduleKirova = document.getElementById("sheduleKirova");
 const sheduleRomanovichi = document.getElementById("sheduleRomanovichi");
 const sheduleVokzal = document.getElementById("sheduleVokzal");
+const sheduleMyasokombinat = document.getElementById("sheduleMyasokombinat");
 let timer
 let day
 let hours
@@ -104,10 +106,11 @@ export default function setShedules (showDay) {
     if (showingDay === undefined && upcoming.length < 1) nextEl.classList.add("hidden");
   }
 
+  sheduling(buildSchedule("vokzal", day), timeNextVokzal, sheduleVokzal);
+  sheduling(buildSchedule("myasokombinat", day), timeNextMyasokombinat, sheduleMyasokombinat);
   sheduling(buildSchedule("kirova", day), timeNextKirova, sheduleKirova);
   sheduling(buildSchedule("kadino", day), timeNextKadino, sheduleKadino);
   sheduling(buildSchedule("romanovichi", day), timeNextRomanovichi, sheduleRomanovichi);
-  sheduling(buildSchedule("vokzal", day), timeNextVokzal, sheduleVokzal);
 
   timer = setTimeout(() => setShedules(showingDay), 10000);
 };
